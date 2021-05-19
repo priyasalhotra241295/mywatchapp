@@ -1,16 +1,20 @@
-import { Pipe, PipeTransform } from '@angular/core';
+export class Episode {
+  id: number;
+  name: string;
+  seasonNumber: number;
+  episodeNumber: number;
+  airDate: Date;
+  summary: string;
+  fullNumber: string;
 
-@Pipe({
-  name: 'shorten'
-})
-export class ShortenPipe implements PipeTransform {
-
-  transform(value: string, maxLen: number): string {
-    if (value.length < maxLen) {
-      return value;
-    } else {
-      return value.slice(0, maxLen - 3) + '...';
-    }
+  constructor(episodeInfo) {
+    this.id = episodeInfo.id;
+    this.name = episodeInfo.name;
+    this.seasonNumber = episodeInfo.season;
+    this.episodeNumber = episodeInfo.number;
+    this.airDate = new Date(episodeInfo.airdate);
+    this.summary = episodeInfo.summary;
+    this.fullNumber = `S${(Number(episodeInfo.season) > 9) ? episodeInfo.season : '0' + episodeInfo.season }` +
+      `E${(Number(episodeInfo.number) > 9) ? episodeInfo.number : '0' + episodeInfo.number }`;
   }
-
 }
